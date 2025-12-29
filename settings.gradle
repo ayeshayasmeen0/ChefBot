@@ -16,6 +16,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        // ADD THESE MISSING REPOSITORIES HERE:
+        maven { url 'https://jitpack.io' }
+        // maven { url 'https://maven.google.com' } // This one is usually not needed as google() covers it
     }
 }
 

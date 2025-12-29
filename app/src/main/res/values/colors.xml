@@ -1,5 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Orange Theme Colors -->
+    <color name="orange_primary">#FF6F61</color>
+    <color name="orange_dark">#D45A4E</color>
+
+    <!-- Teal Colors -->
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+
+
+
+    <!-- Navigation Colors -->
+    <color name="bottom_nav_colors">#FF6F61</color>
+    <color name="bottom_nav_selected">#FF6F00</color>
+    <color name="bottom_nav_unselected">#888888</color>
+    <color name="splash_background_color">#FF6F61</color>
+
+    <!-- Green Theme Colors -->
+    <color name="green_dark">#2E7D32</color>
+    <color name="green_medium">#4CAF50</color>
+    <color name="green_light">#81C784</color>
+    <color name="green_very_light">#E8F5E9</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="text_gray">#9E9E9E</color>
+    <color name="text_light_gray">#BDBDBD</color>
+    <color name="text_hint">#BDBDBD</color>
+    <color name="text_white">#FFFFFF</color>
+
+    <!-- Chip Colors -->
+    <color name="chip_background">#4CAF50</color>  <!-- Green background -->
+    <color name="chip_text">#FFFFFF</color>       <!-- White text -->
+    <color name="chip_selected">#2E7D32</color>   <!-- Dark green when selected -->
+    <color name="chip_stroke">#81C784</color>     <!-- Light green border -->
+
+    <!-- Primary Colors for Theme -->
+    <color name="colorPrimary">#FF6F61</color>
+    <color name="colorPrimaryDark">#D45A4E</color>
+    <color name="colorAccent">#4CAF50</color>
+
+    <!-- Background Colors -->
+    <color name="background">#FAFAFA</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="card_background">#FFFFFF</color>
+
+    <!-- Button Colors -->
+    <color name="button_primary">#FF6F61</color>
+    <color name="button_secondary">#757575</color>
+    <color name="button_success">#4CAF50</color>
+
+    <!-- Status Colors -->
+    <color name="success">#4CAF50</color>
+    <color name="warning">#FF9800</color>
+    <color name="error">#F44336</color>
+    <color name="info">#2196F3</color>
+
+    <!-- Accent Colors -->
+    <color name="accent_yellow">#FFEB3B</color>
+    <color name="accent_orange">#FF9800</color>
+
+    <!-- Pantry Specific Colors -->
+    <color name="pantry_primary">#FF8A65</color>
+    <color name="pantry_light">#FFCCBC</color>
+    <color name="pantry_dark">#D84315</color>
+
+    <!-- Ingredient Category Colors -->
+    <color name="category_meat">#FFCDD2</color>
+    <color name="category_veg">#C8E6C9</color>
+    <color name="category_dairy">#E3F2FD</color>
+    <color name="category_grain">#FFF3E0</color>
+    <color name="category_spice">#F3E5F5</color>
+
+    <!-- Border & Divider Colors -->
+    <color name="border_light">#E0E0E0</color>
+    <color name="divider">#EEEEEE</color>
+    <color name="shadow">#1E000000</color>
+    <color name="primaryColor">#FF6200EE</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray">#808080</color>
+    <color name="darkGray">#424242</color>
+    <color name="red">#FF0000</color>
+    <!-- Material Design Colors -->
+    <color name="material_grey_50">#FAFAFA</color>
+    <color name="material_grey_100">#F5F5F5</color>
+    <color name="material_grey_200">#EEEEEE</color>
+    <color name="material_grey_300">#E0E0E0</color>
+    <color name="material_grey_400">#BDBDBD</color>
+    <color name="material_grey_500">#9E9E9E</color>
+    <color name="material_grey_600">#757575</color>
+    <color name="material_grey_700">#616161</color>
+    <color name="material_grey_800">#424242</color>
+    <color name="material_grey_900">#212121</color>
+
+    <!-- Transparent Colors -->
+    <color name="transparent">#00000000</color>
+    <color name="semi_transparent_black">#80000000</color>
+    <color name="semi_transparent_white">#80FFFFFF</color>
 </resources>
