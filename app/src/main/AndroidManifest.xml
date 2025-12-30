@@ -8,7 +8,7 @@
         android:label="ChefBot"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
-        <!-- Simple Splash -->
+        <!-- Splash Activity -->
         <activity
             android:name=".SplashActivity"
             android:exported="true">
@@ -18,9 +18,14 @@
             </intent-filter>
         </activity>
 
-        <!-- Simple Main -->
+        <!-- Main Activity -->
         <activity
             android:name=".MainActivity"
+            android:exported="false" />
+
+        <!-- Recipe Activity -->
+        <activity
+            android:name=".RecipeActivity"
             android:exported="false" />
 
     </application>

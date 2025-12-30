@@ -5,11 +5,11 @@ plugins {
 
 android {
     namespace 'com.example.chefbot'
-    compileSdk 34
+    compileSdk 34   // ✅ STABLE
 
     defaultConfig {
         applicationId "com.example.chefbot"
-        minSdk 24
+        minSdk 21
         targetSdk 34
         versionCode 1
         versionName "1.0"
@@ -27,17 +27,17 @@ android {
 
 dependencies {
 
-    // 🔥 Firebase BOM
-    implementation platform('com.google.firebase:firebase-bom:33.2.0')
-
-    // 🔥 Firebase Services
-    implementation 'com.google.firebase:firebase-firestore'
-    implementation 'com.google.firebase:firebase-analytics'
-    implementation 'com.google.firebase:firebase-auth'
-
-    // Android UI
+    // Android Core (JAVA)
+    implementation 'androidx.core:core:1.12.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.11.0'
     implementation 'androidx.recyclerview:recyclerview:1.3.2'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.cardview:cardview:1.0.0'
+
+    // Firebase
+    implementation platform('com.google.firebase:firebase-bom:33.6.0')
+    implementation 'com.google.firebase:firebase-firestore'
+    implementation 'com.google.firebase:firebase-firestore:24.10.0'
+    // Testing
+    testImplementation 'junit:junit:4.13.2'
 }

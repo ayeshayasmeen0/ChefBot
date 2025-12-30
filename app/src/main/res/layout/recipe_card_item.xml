@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/recipe_card"
+    android:padding="20dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <TextView
+        android:id="@+id/tvRecipeName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Recipe Name"
+        android:textColor="#FF5722"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/tvRecipeTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="30 minutes"
+        android:textColor="#4CAF50"
+        android:textSize="14sp"
+        android:layout_marginBottom="12dp" />
+
+    <TextView
+        android:id="@+id/tvRecipeIngredients"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ingredients list"
+        android:textColor="#757575"
+        android:textSize="15sp"
+        android:lineSpacingExtra="4dp" />
+
+</LinearLayout>

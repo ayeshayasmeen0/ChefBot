@@ -1,19 +1,65 @@
 package com.example.chefbot;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
+
+    private EditText etIngredients;
+    private Button btnFindRecipes, btnQuick1, btnQuick2, btnQuick3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main); // Use SIMPLE layout
+        setContentView(R.layout.activity_main);
 
-        Button btn = findViewById(R.id.btnTest);
-        btn.setOnClickListener(v -> {
-            Toast.makeText(this, "App is working!", Toast.LENGTH_SHORT).show();
+        // Initialize views
+        etIngredients = findViewById(R.id.etIngredients);
+        btnFindRecipes = findViewById(R.id.btnFindRecipes);
+        btnQuick1 = findViewById(R.id.btnQuick1);
+        btnQuick2 = findViewById(R.id.btnQuick2);
+        btnQuick3 = findViewById(R.id.btnQuick3);
+
+        // Find Recipes Button
+        btnFindRecipes.setOnClickListener(v -> findRecipes());
+
+        // Quick suggestion buttons
+        btnQuick1.setOnClickListener(v -> {
+            etIngredients.setText("eggs, milk, bread, butter, cheese");
+            Toast.makeText(this, "Breakfast ingredients added!", Toast.LENGTH_SHORT).show();
         });
+
+        btnQuick2.setOnClickListener(v -> {
+            etIngredients.setText("chicken, rice, tomatoes, onions, spices");
+            Toast.makeText(this, "Lunch ingredients added!", Toast.LENGTH_SHORT).show();
+        });
+
+        btnQuick3.setOnClickListener(v -> {
+            etIngredients.setText("pasta, vegetables, olive oil, garlic, herbs");
+            Toast.makeText(this, "Dinner ingredients added!", Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    private void findRecipes() {
+        String userInput = etIngredients.getText().toString().trim();
+
+        if (userInput.isEmpty()) {
+            etIngredients.setError("Please enter some ingredients");
+            etIngredients.requestFocus();
+            return;
+        }
+
+        // Show loading message
+        Toast.makeText(this, "Finding recipes...", Toast.LENGTH_SHORT).show();
+
+        // Pass ingredients to RecipeActivity
+        Intent intent = new Intent(MainActivity.this, RecipeActivity.class);
+        intent.putExtra("USER_INGREDIENTS", userInput);
+        startActivity(intent);
     }
 }
