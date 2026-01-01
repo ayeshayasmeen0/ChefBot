@@ -16,25 +16,44 @@
         android:paddingHorizontal="16dp"
         android:elevation="4dp">
 
-        <!-- ADDED: ChefBot Logo Image -->
-        <ImageView
-            android:id="@+id/logoImage"
-            android:layout_width="68dp"
-            android:layout_height="38dp"
-            android:background="@drawable/circle_white"
-            android:scaleType="centerCrop"
-            android:src="@drawable/cb" />
+        <!-- App Name with Emoji -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🤖 ChefBot"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <ImageView
+        <!-- Favorites Button -->
+        <TextView
+            android:id="@+id/ivFavorites"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="❤️"
+            android:textSize="22sp"
+            android:textColor="#FFFFFF"
+            android:layout_marginEnd="16dp"
+            android:padding="8dp"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <!-- Settings Button -->
+        <TextView
             android:id="@+id/ivSettings"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_settings" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="⚙️"
+            android:textSize="22sp"
+            android:textColor="#FFFFFF"
+            android:padding="8dp"
+            android:clickable="true"
+            android:focusable="true" />
 
     </LinearLayout>
 
@@ -115,7 +134,6 @@
                         android:gravity="top"
                         android:inputType="textMultiLine"
                         android:padding="16dp"
-                        android:background="@drawable/edittext_rounded"
                         android:textSize="15sp" />
 
                     <TextView
@@ -130,20 +148,16 @@
 
             </androidx.cardview.widget.CardView>
 
-            <!-- Find Recipes Button -->
             <Button
                 android:id="@+id/btnFindRecipes"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginTop="24dp"
                 android:backgroundTint="#FF5722"
-                android:text="Find Recipes"
+                android:text="🔍 Find Recipes"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
                 android:textAllCaps="false"
-                android:drawablePadding="8dp"
-                app:drawableStartCompat="@drawable/ic_search"
-                android:drawableTint="#FFFFFF"
                 style="@style/Widget.AppCompat.Button.Colored" />
 
             <!-- Quick Suggestions -->
@@ -168,7 +182,7 @@
                     android:layout_height="40dp"
                     android:layout_weight="1"
                     android:layout_marginEnd="8dp"
-                    android:text="Breakfast"
+                    android:text="🥞 Breakfast"
                     android:backgroundTint="#FFECB3"
                     android:textColor="#FF5722"
                     android:textAllCaps="false" />
@@ -179,7 +193,7 @@
                     android:layout_height="40dp"
                     android:layout_weight="1"
                     android:layout_marginHorizontal="8dp"
-                    android:text="Lunch"
+                    android:text="🍱 Lunch"
                     android:backgroundTint="#FFECB3"
                     android:textColor="#FF5722"
                     android:textAllCaps="false" />
@@ -190,7 +204,7 @@
                     android:layout_height="40dp"
                     android:layout_weight="1"
                     android:layout_marginStart="8dp"
-                    android:text="Dinner"
+                    android:text="🍝 Dinner"
                     android:backgroundTint="#FFECB3"
                     android:textColor="#FF5722"
                     android:textAllCaps="false" />
@@ -226,11 +240,12 @@
                         android:orientation="horizontal"
                         android:layout_marginBottom="12dp">
 
-                        <ImageView
+                        <TextView
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginEnd="12dp"
-                            android:src="@drawable/ic_fire" />
+                            android:text="🔥"
+                            android:textSize="14sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -247,11 +262,12 @@
                         android:orientation="horizontal"
                         android:layout_marginBottom="12dp">
 
-                        <ImageView
+                        <TextView
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginEnd="12dp"
-                            android:src="@drawable/ic_time" />
+                            android:text="⏱️"
+                            android:textSize="14sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -267,11 +283,12 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <ImageView
+                        <TextView
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginEnd="12dp"
-                            android:src="@drawable/ic_favorite_border" />
+                            android:text="❤️"
+                            android:textSize="14sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
