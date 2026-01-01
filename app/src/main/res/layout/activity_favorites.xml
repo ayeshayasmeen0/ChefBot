@@ -10,7 +10,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="#FF5722"
+        android:background="#FFFFFF"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingHorizontal="16dp"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:text="My Favorites"
-            android:textColor="#FFFFFF"
+            android:textColor="#FF5722"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:text="❌"
             android:textSize="20sp"
-            android:textColor="#FFFFFF"
+            android:textColor="#FF5722"
             android:padding="8dp"
             android:clickable="true"
             android:focusable="true" />
@@ -57,51 +57,60 @@
         android:layout_below="@id/header"
         android:padding="16dp">
 
-        <!-- Empty State -->
+        <!-- SINGLE CHILD for ScrollView -->
         <LinearLayout
-            android:id="@+id/emptyState"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="40dp"
-            android:visibility="visible">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="🤍"
-                android:textSize="48sp"
-                android:layout_marginBottom="24dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="No Favorites Yet"
-                android:textColor="#666666"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="12dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Add recipes to favorites by tapping the heart icon"
-                android:textColor="#999999"
-                android:textSize="14sp"
-                android:gravity="center"
-                android:lineSpacingExtra="4dp" />
-
-        </LinearLayout>
-
-        <!-- Favorites List -->
-        <LinearLayout
-            android:id="@+id/favoritesContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone" />
+            android:background="#FFFFFF"
+            android:orientation="vertical">
 
+            <!-- Empty State -->
+
+            <!-- Favorites List -->
+            <LinearLayout
+                android:id="@+id/emptyState"
+                android:layout_width="match_parent"
+                android:layout_height="591dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="40dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:text="🤍"
+                    android:textSize="48sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:text="No Favorites Yet"
+                    android:textColor="#FF5722"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:lineSpacingExtra="4dp"
+                    android:text="Add recipes to favorites by tapping the heart icon"
+                    android:textColor="#FF5722"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/favoritesContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone" />
+
+        </LinearLayout>
     </ScrollView>
 
     <!-- Loading Indicator -->

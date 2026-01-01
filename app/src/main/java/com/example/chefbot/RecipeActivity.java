@@ -2,20 +2,24 @@ package com.example.chefbot;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class RecipeActivity extends AppCompatActivity {
@@ -27,9 +31,11 @@ public class RecipeActivity extends AppCompatActivity {
     private TextView tvRecipeCount;
     private TextView tvIngredients;
 
-    // Local storage for favorites
     private SharedPreferences sharedPreferences;
     private Set<String> favoritesSet;
+
+    // 🔴 FIXED USER ID (later FirebaseAuth se dynamic kar sakti ho)
+    private String userId = "user_123";
 
     private static class Recipe {
         private String id;
@@ -55,24 +61,19 @@ public class RecipeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
 
-        // Initialize Firebase Firestore ONLY
         db = FirebaseFirestore.getInstance();
 
-        // Initialize local favorites storage
         sharedPreferences = getSharedPreferences("ChefBotFavorites", MODE_PRIVATE);
-        favoritesSet = sharedPreferences.getStringSet("favorites", new HashSet<>());
+        favoritesSet = new HashSet<>(sharedPreferences.getStringSet("favorites", new HashSet<>()));
 
-        // Initialize views
         recipesLayout = findViewById(R.id.recipesLayout);
         noRecipesLayout = findViewById(R.id.noRecipesLayout);
         progressBar = findViewById(R.id.progressBar);
         tvRecipeCount = findViewById(R.id.tvRecipeCount);
         tvIngredients = findViewById(R.id.tvIngredients);
 
-        // Set back button
         findViewById(R.id.btnBack).setOnClickListener(v -> finish());
 
-        // Get ingredients from intent
         String ingredients = getIntent().getStringExtra("USER_INGREDIENTS");
 
         if (ingredients != null && !ingredients.isEmpty()) {
@@ -108,14 +109,13 @@ public class RecipeActivity extends AppCompatActivity {
 
                             if (recipeName != null && recipeIngredients != null && cookingTime != null) {
                                 if (canMakeRecipe(recipeIngredients.toLowerCase(), userIngArray)) {
-                                    Recipe recipe = new Recipe(recipeId, recipeName, recipeIngredients, cookingTime);
-                                    matchingRecipes.add(recipe);
+                                    matchingRecipes.add(
+                                            new Recipe(recipeId, recipeName, recipeIngredients, cookingTime)
+                                    );
                                 }
                             }
                         }
-
                         displayRecipes(matchingRecipes);
-
                     } else {
                         Toast.makeText(RecipeActivity.this,
                                 "Error fetching recipes. Check internet.",
@@ -126,8 +126,8 @@ public class RecipeActivity extends AppCompatActivity {
     }
 
     private boolean canMakeRecipe(String recipeIngredients, String[] userIngredients) {
-        for (String userIng : userIngredients) {
-            String trimmedIng = userIng.trim();
+        for (String ing : userIngredients) {
+            String trimmedIng = ing.trim();
             if (!trimmedIng.isEmpty() && recipeIngredients.contains(trimmedIng)) {
                 return true;
             }
@@ -152,49 +152,25 @@ public class RecipeActivity extends AppCompatActivity {
         for (int i = 0; i < recipes.size(); i++) {
             Recipe recipe = recipes.get(i);
 
-            View recipeCard = inflater.inflate(R.layout.recipe_card_item, recipesLayout, false);
+            View card = inflater.inflate(R.layout.recipe_card_item, recipesLayout, false);
 
-            TextView tvRecipeName = recipeCard.findViewById(R.id.tvRecipeName);
-            TextView tvRecipeTime = recipeCard.findViewById(R.id.tvRecipeTime);
-            TextView tvRecipeIngredients = recipeCard.findViewById(R.id.tvRecipeIngredients);
+            ((TextView) card.findViewById(R.id.tvRecipeName)).setText("🍳 " + recipe.getName());
+            ((TextView) card.findViewById(R.id.tvRecipeTime)).setText("⏱ " + recipe.getTime());
+            ((TextView) card.findViewById(R.id.tvRecipeIngredients))
+                    .setText("📝 " + recipe.getIngredients());
 
-            // Set data with emojis
-            tvRecipeName.setText("🍳 " + recipe.getName());
-            tvRecipeTime.setText("⏱ " + recipe.getTime());
-            tvRecipeIngredients.setText("📝 " + recipe.getIngredients());
+            TextView btnFavorite = card.findViewById(R.id.btnFavorite);
 
-            // Add favorite button (Text view as button)
-            LinearLayout cardLayout = (LinearLayout) recipeCard;
-            TextView btnFavorite = new TextView(this);
-            btnFavorite.setId(View.generateViewId());
-
-            // Check if recipe is in favorites
-            if (favoritesSet.contains(recipe.getId())) {
-                btnFavorite.setText("❤️");
-            } else {
-                btnFavorite.setText("🤍");
-            }
-
-            btnFavorite.setTextSize(24);
-            btnFavorite.setPadding(16, 0, 16, 0);
-            btnFavorite.setClickable(true);
-
-            // Add to card
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
+            btnFavorite.setText(
+                    favoritesSet.contains(recipe.getId()) ? "❤️" : "🤍"
             );
-            params.gravity = android.view.Gravity.END;
-            cardLayout.addView(btnFavorite, 0, params); // Add at top
 
-            // Favorite button click
-            final String recipeId = recipe.getId();
-            btnFavorite.setOnClickListener(v -> {
-                toggleFavorite(recipeId, btnFavorite);
-            });
+            btnFavorite.setOnClickListener(v ->
+                    toggleFavorite(recipe, btnFavorite)
+            );
 
             // Recipe card click
-            recipeCard.setOnClickListener(v -> {
+            card.setOnClickListener(v -> {
                 Toast.makeText(RecipeActivity.this,
                         recipe.getName() + " selected",
                         Toast.LENGTH_SHORT).show();
@@ -202,32 +178,119 @@ public class RecipeActivity extends AppCompatActivity {
 
             // Margin between cards
             if (i < recipes.size() - 1) {
-                LinearLayout.LayoutParams cardParams = (LinearLayout.LayoutParams) recipeCard.getLayoutParams();
+                LinearLayout.LayoutParams cardParams = (LinearLayout.LayoutParams) card.getLayoutParams();
                 cardParams.bottomMargin = 16;
-                recipeCard.setLayoutParams(cardParams);
+                card.setLayoutParams(cardParams);
             }
 
-            recipesLayout.addView(recipeCard);
+            recipesLayout.addView(card);
         }
     }
 
-    private void toggleFavorite(String recipeId, TextView favoriteButton) {
-        if (favoritesSet.contains(recipeId)) {
+    private void toggleFavorite(Recipe recipe, TextView btn) {
+        if (favoritesSet.contains(recipe.getId())) {
             // Remove from favorites
-            favoritesSet.remove(recipeId);
-            favoriteButton.setText("🤍");
-            Toast.makeText(this, "Removed from favorites", Toast.LENGTH_SHORT).show();
+            favoritesSet.remove(recipe.getId());
+            btn.setText("🤍");
+
+            // Toast message with recipe name
+            Toast.makeText(this, "❌ " + recipe.getName() + " removed from favorites", Toast.LENGTH_SHORT).show();
+
+            // Remove from Firebase
+            removeFromFirebaseFavorites(recipe.getId());
+
         } else {
             // Add to favorites
-            favoritesSet.add(recipeId);
-            favoriteButton.setText("❤️");
-            Toast.makeText(this, "Added to favorites", Toast.LENGTH_SHORT).show();
+            favoritesSet.add(recipe.getId());
+            btn.setText("❤️");
+
+            // Toast message with recipe name
+            Toast.makeText(this, "✅ " + recipe.getName() + " added to favorites", Toast.LENGTH_SHORT).show();
+
+            // Add to Firebase
+            addToFirebaseFavorites(recipe);
         }
 
         // Save to SharedPreferences
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putStringSet("favorites", new HashSet<>(favoritesSet));
-        editor.apply();
+        sharedPreferences.edit()
+                .putStringSet("favorites", new HashSet<>(favoritesSet))
+                .apply();
+    }
+
+    // 🔥 FIXED FIREBASE ADD - Use recipeId as document ID
+    private void addToFirebaseFavorites(Recipe recipe) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("name", recipe.getName());
+        data.put("ingredients", recipe.getIngredients());
+        data.put("time", recipe.getTime());
+        data.put("timestamp", System.currentTimeMillis());
+
+        // Use recipeId as the document ID for easy deletion
+        db.collection("users")
+                .document(userId)
+                .collection("favorites")
+                .document(recipe.getId())  // ✅ Use recipeId as document ID
+                .set(data)
+                .addOnSuccessListener(aVoid -> {
+                    Log.d("Firebase", "✅ " + recipe.getName() + " added to Firebase (ID: " + recipe.getId() + ")");
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("Firebase", "❌ Error adding favorite: " + e.getMessage());
+                });
+    }
+
+    // 🔥 FIXED FIREBASE REMOVE - Simple delete with recipeId as document ID
+    private void removeFromFirebaseFavorites(String recipeId) {
+        Log.d("Firebase", "🗑️ Attempting to delete recipe: " + recipeId);
+
+        db.collection("users")
+                .document(userId)
+                .collection("favorites")
+                .document(recipeId)  // ✅ Use recipeId as document ID
+                .delete()
+                .addOnSuccessListener(aVoid -> {
+                    Log.d("Firebase", "✅ SUCCESS: Deleted from Firebase: " + recipeId);
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("Firebase", "❌ FAILED to delete: " + e.getMessage());
+
+                    // Try alternative method if direct delete fails
+                    tryAlternativeDelete(recipeId);
+                });
+    }
+
+    // Alternative method: Find by recipeId field and delete
+    private void tryAlternativeDelete(String recipeId) {
+        Log.d("Firebase", "🔄 Trying alternative delete for: " + recipeId);
+
+        db.collection("users")
+                .document(userId)
+                .collection("favorites")
+                .whereEqualTo("recipeId", recipeId)
+                .get()
+                .addOnSuccessListener(querySnapshot -> {
+                    if (!querySnapshot.isEmpty()) {
+                        for (QueryDocumentSnapshot document : querySnapshot) {
+                            String docId = document.getId();
+                            Log.d("Firebase", "Found document with ID: " + docId);
+
+                            // Delete using actual document ID
+                            db.collection("users")
+                                    .document(userId)
+                                    .collection("favorites")
+                                    .document(docId)
+                                    .delete()
+                                    .addOnSuccessListener(aVoid -> {
+                                        Log.d("Firebase", "✅ Alternative delete successful");
+                                    });
+                        }
+                    } else {
+                        Log.d("Firebase", "⚠️ No document found with recipeId: " + recipeId);
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("Firebase", "❌ Alternative delete also failed: " + e.getMessage());
+                });
     }
 
     private void showNoRecipesMessage() {

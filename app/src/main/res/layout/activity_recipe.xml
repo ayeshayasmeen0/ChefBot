@@ -28,7 +28,7 @@
     <!-- Content -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="476dp"
         android:layout_weight="1"
         android:padding="24dp">
 
@@ -41,32 +41,32 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:text="Your Ingredients:"
                 android:textColor="#212121"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="8dp" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvIngredients"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="No ingredients"
-                android:textColor="#757575"
-                android:textSize="16sp"
                 android:layout_marginBottom="24dp"
-                android:padding="16dp"
-
                 android:gravity="center_vertical"
-                android:minHeight="60dp" />
+                android:minHeight="60dp"
+                android:padding="16dp"
+                android:text="No ingredients"
+
+                android:textColor="#757575"
+                android:textSize="16sp" />
 
             <!-- Matching Recipes Title -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginBottom="12dp"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="12dp">
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -80,10 +80,10 @@
                     android:id="@+id/tvRecipeCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:text="(0 found)"
                     android:textColor="#757575"
-                    android:textSize="14sp"
-                    android:layout_marginStart="8dp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -109,31 +109,30 @@
                 android:id="@+id/noRecipesLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:gravity="center"
+                android:orientation="vertical"
                 android:padding="32dp"
                 android:visibility="gone">
 
 
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center"
                     android:text="No Matching Recipes Found"
                     android:textColor="#757575"
                     android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:layout_marginBottom="8dp" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:lineSpacingExtra="4dp"
                     android:text="Try adding more ingredients or check back later!"
                     android:textColor="#9E9E9E"
-                    android:textSize="14sp"
-                    android:gravity="center"
-                    android:lineSpacingExtra="4dp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -142,44 +141,44 @@
                 android:id="@+id/comingSoonLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:gravity="center"
+                android:orientation="vertical"
                 android:padding="32dp"
                 android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
                     android:text="🍳"
-                    android:textSize="48sp"
-                    android:layout_marginBottom="16dp" />
+                    android:textSize="48sp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:gravity="center"
                     android:text="Recipe Suggestions Coming Soon!"
                     android:textColor="#FF5722"
                     android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:layout_marginBottom="16dp" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:lineSpacingExtra="4dp"
                     android:text="We're working on bringing you amazing recipe suggestions based on your ingredients. Stay tuned!"
                     android:textColor="#757575"
-                    android:textSize="16sp"
-                    android:gravity="center"
-                    android:lineSpacingExtra="4dp" />
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
             <!-- Back Button -->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnBack"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
+                android:layout_width="350dp"
+                android:layout_height="79dp"
                 android:layout_marginTop="40dp"
                 android:backgroundTint="#FF5722"
                 android:text="Go Back"
