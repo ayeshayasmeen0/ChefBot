@@ -35,10 +35,9 @@ This project is developed as part of the **Open Ended Android App Development La
 
  ## 👨‍💻 Developer
 - Name: Ayesha Yasmin
-- College: KICSIT
+- University: KICSIT
 - Subject: Mobile Application Development
  
  
  
- Name*
-- Subject: Mobile Application Development
+ 
